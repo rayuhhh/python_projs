@@ -45,13 +45,44 @@ def create_todo():
    
 
     
+def display_menu(todo: Todo)-> None:
+    while True:
+        print("\nTo-Do List Menu:")
+        print("1. Add Task")
+        print("2/ View Tasks")
+        print("3. Mark Task Complete")
+        print("4. Remove Task")
+        print("5. Save Tasks")
+        print("6. Load Tasks")
+        print("7. Exit")
+        choice = input("Choose an option: ")
 
-
+        if choice == "1":
+            task = input("Enter Task: ")
+            # line methods up with this menu for all choices
+            create_task(task)
+            todo.add_task
+        elif choice == "2":
+            #view_tasks()
+        elif choice == "3":
+            #
+            task_idx =  int(input("Enter task number to mark as complete: "))
+            mark_complete(task_idx)
+        elif choice == "4":
+        elif choice == "5":
+        elif choice == "6":
+        elif choice == "7":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid option. Please try again.")
 
 def main():
     
     todo = create_todo()
-    task_one = create_task('lift')
+    display_menu(todo)
+
+    
     todo.add_task(task_one)
     #todo.add_task('laundry')
     todo.view_tasks()
