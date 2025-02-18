@@ -20,20 +20,24 @@ class Todo:
             print(f'{count}. {task}')
             count+=1
    
-    def mark_complete(self, index):
-        if index < 0 or index > len(self.tasks)-1:
+    def index_check(self, index):
+        if index < 0 or index> len(self.tasks)-1:
             print('Invalid task index, please enter valid index.')
-        else:
+            return False
+        return True
+
+    def mark_complete(self, index):
+        if self.index_check(index):
             if self.tasks[index].completed:
                 print('task already completed')
             else:
                 self.tasks[index].completed = True
-
-
-
-    # Getter
     
-    # Setter
+    def remove_task(self, index):
+        if self.index_check(index):
+            self.tasks.pop(index)
+
+
     
 class Task:
     def __init__(self, name):
@@ -56,7 +60,7 @@ def display_menu(todo: Todo)-> None:
     while True:
         print("\nTo-Do List Menu:")
         print("1. Add Task")
-        print("2/ View Tasks")
+        print("2. View Tasks")
         print("3. Mark Task Complete")
         print("4. Remove Task")
         print("5. Save Tasks")
@@ -66,20 +70,28 @@ def display_menu(todo: Todo)-> None:
 
         print()
 
+        # Add a Task
         if choice == "1":
             task = input("Enter Task: ")
             # line methods up with this menu for all choices
             task_one = create_task(task)
             todo.add_task(task_one)
+
+        # View Tasks of to do list
         elif choice == "2":
             todo.view_tasks()
         
+        # Mark task as complete
         elif choice == "3":
         
             task_idx =  int(input("Enter task number to mark as complete: ")) - 1
 
             todo.mark_complete(task_idx)
-        # elif choice == "4":
+        # Remove task from To Do list    
+        elif choice == "4":
+            task_idx = int(input("Enter task number to removed from list: ")) - 1
+            todo.remove_task(task_idx)
+
         # elif choice == "5":
         # elif choice == "6":
         elif choice == "7":
