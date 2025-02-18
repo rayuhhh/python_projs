@@ -8,7 +8,7 @@ class Todo:
         self.tasks = []
 
     def __str__(self):
-        return f'To do list: {self.name} \nwith tasks: \n {'\n '.join(self.tasks)}'
+        return f'To do list: {self.name} \nwith tasks: \n' +('\n '.join(self.tasks)) if len(self.tasks)>1 else f'To Do item: {self.tasks[0]}'
     
     # add task
     def add_task(self, task):
@@ -20,7 +20,14 @@ class Todo:
             print(f'{count}. {task}')
             count+=1
    
-    #def mark_complete(self, index):
+    def mark_complete(self, index):
+        if index < 0 or index > len(self.tasks)-1:
+            print('Invalid task index, please enter valid index.')
+        else:
+            if self.tasks[index].completed:
+                print('task already completed')
+            else:
+                self.tasks[index].completed = True
 
 
 
@@ -57,22 +64,27 @@ def display_menu(todo: Todo)-> None:
         print("7. Exit")
         choice = input("Choose an option: ")
 
+        print()
+
         if choice == "1":
             task = input("Enter Task: ")
             # line methods up with this menu for all choices
-            create_task(task)
-            todo.add_task
+            task_one = create_task(task)
+            todo.add_task(task_one)
         elif choice == "2":
-            #view_tasks()
+            todo.view_tasks()
+        
         elif choice == "3":
-            #
-            task_idx =  int(input("Enter task number to mark as complete: "))
-            mark_complete(task_idx)
-        elif choice == "4":
-        elif choice == "5":
-        elif choice == "6":
+        
+            task_idx =  int(input("Enter task number to mark as complete: ")) - 1
+
+            todo.mark_complete(task_idx)
+        # elif choice == "4":
+        # elif choice == "5":
+        # elif choice == "6":
         elif choice == "7":
             print("Exiting the program.")
+            #todo.view_tasks()
             break
         else:
             print("Invalid option. Please try again.")
@@ -82,10 +94,18 @@ def main():
     todo = create_todo()
     display_menu(todo)
 
+
+
+
+
+    # task_one = create_task('Add')
     
-    todo.add_task(task_one)
+    # todo.add_task(task_one)
     #todo.add_task('laundry')
-    todo.view_tasks()
+    #print(todo)
+    # todo.view_tasks()
+    # todo.mark_complete(0)
+    # todo.view_tasks()
     #print(todo)
 
 
