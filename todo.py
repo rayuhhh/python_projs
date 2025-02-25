@@ -1,4 +1,6 @@
+import os
 
+file_path = "C:\Users\teais\Desktop\Personal\Daily life"
 
 class Todo:
     def __init__(self, name):
@@ -36,6 +38,15 @@ class Todo:
     def remove_task(self, index):
         if self.index_check(index):
             self.tasks.pop(index)
+    
+    def save_to_file(self, file_path):
+        with open(file_path, 'w') as file:
+            file.write(f'{self.name}\n')
+            for task in self.tasks:
+                file.write(f'{task.name}, completed: {task.completed}')
+        print("To do list and tasks saved to file")
+    
+
 
 
     
@@ -54,6 +65,8 @@ def create_todo():
     name = input("Name: ")
     return Todo(name)
    
+
+
 
     
 def display_menu(todo: Todo)-> None:
@@ -92,6 +105,7 @@ def display_menu(todo: Todo)-> None:
             task_idx = int(input("Enter task number to removed from list: ")) - 1
             todo.remove_task(task_idx)
 
+        # Save Tasks
         # elif choice == "5":
         # elif choice == "6":
         elif choice == "7":
