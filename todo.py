@@ -1,9 +1,12 @@
+from __future__ import annotations
+from typing import List
 import os
 
-file_path = "C:\Users\teais\Desktop\Personal\Daily life"
+file_path = "C:/Users/teais/Desktop/Personal/Daily life"
+filename = ''
 
 class Todo:
-    def __init__(self, name):
+    def __init__(self, name : str):
         if not name:
             raise ValueError('Missing name for todo list')
         self.name = name
@@ -13,7 +16,7 @@ class Todo:
         return f'To do list: {self.name} \nwith tasks: \n' +('\n '.join(self.tasks)) if len(self.tasks)>1 else f'To Do item: {self.tasks[0]}'
     
     # add task
-    def add_task(self, task):
+    def add_task(self, task : 'Task'):
         self.tasks.append(task)
     
     def view_tasks(self):
@@ -45,6 +48,9 @@ class Todo:
             for task in self.tasks:
                 file.write(f'{task.name}, completed: {task.completed}')
         print("To do list and tasks saved to file")
+
+    def load_from_file(self, file_path):
+        ...
     
 
 
@@ -116,7 +122,9 @@ def display_menu(todo: Todo)-> None:
             print("Invalid option. Please try again.")
 
 def main():
-    
+    global file_name
+    file_name = input('Enter File name to be saved: ')
+
     todo = create_todo()
     display_menu(todo)
 
