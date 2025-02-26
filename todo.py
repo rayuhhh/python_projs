@@ -2,8 +2,9 @@ from __future__ import annotations
 from typing import List
 import os
 
-file_path = "C:/Users/teais/Desktop/Personal/Daily life"
-filename = ''
+folder_path = "C:/Users/teais/Desktop/Personal/Daily life"
+file_name = ''
+file_path = os.path.join(folder_path, file_name)
 
 class Todo:
     def __init__(self, name : str):
@@ -50,7 +51,17 @@ class Todo:
         print("To do list and tasks saved to file")
 
     def load_from_file(self, file_path):
-        ...
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+            self.name = lines[0].strip() # update the todo list name
+            self.tasks = []
+            for line in lines[1:]:
+                task_name, completed = line.strip().split(", completed: ")
+                new_task = Task(task_name)
+                new_task.completed = True if completed == 'True' else False
+                self.tasks.append(new_task)
+        print(f'Name: {self.name}, to do list loaded from file. along with tasks.')
+
     
 
 
@@ -113,6 +124,8 @@ def display_menu(todo: Todo)-> None:
 
         # Save Tasks
         # elif choice == "5":
+
+        # Load Todo list from file
         # elif choice == "6":
         elif choice == "7":
             print("Exiting the program.")
