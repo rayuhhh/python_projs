@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -18,6 +18,17 @@ def index():
     todo_list = Todo.query.all()
     print(todo_list)
     return render_template('base.html', todo_list=todo_list)
+
+# route that is never shown
+@app.route("/add", methods=["POST"])
+def add():
+    # add new item
+    title = request.form.get('title')
+    new_todo = Todo(title=title, completed=False)
+    db.session.add(new_todo)
+    db.session.commit()
+    return redirect(url_for("index"))
+
 
 # @app.route('/about')
 # def about():
